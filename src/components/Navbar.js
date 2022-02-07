@@ -16,7 +16,7 @@ export default class Navbar extends Component {
           <a className="nav-link active" aria-current="page" href="/">Class List</a>
         </li>
         <li className="nav-item">
-          <a className="nav-link" href="/posts">Class Blog</a>
+          <a className="nav-link" to="./PostsList.js">Class Blog</a>
         </li>
       </ul>
     </div>

@@ -1,30 +1,46 @@
-import React, { Component } from 'react';
-import PostsRow from './PostsRow';
-
-export default class PostsList extends Component {
-  constructor(props) {
-    console.log('Component Constructed')
-    super(props);
-    this.state = {
-       posts: []
-    }
-}
+import React, { useState, useEffect } from 'react';
+import PostsRow from '../components/PostsRow';
 
 
-componentDidMount(){
-    console.log('Component Did Mount')
-    fetch('https://kekambas-bs.herokuapp.com/posts')
-    .then(res => res.json())
-    .then(data => {
-        console.log(data)
-        this.setState({
-            posts: data
-        })
-    })
-}
+export default function PostList(props){
+    const [posts, setPosts] = useState([]);
+    useEffect(() => {
+        fetch('http://kekambas-bs.herokuapp.com/posts')
+            .then(res => res.json())
+            .then(data => {
+                console.log(data);
+                setPosts(data);
+            })
+    }, [])
 
-    render() {
-        console.log('Component Rendered')
+// export default class PostsList extends Component {
+//   constructor(props) {
+//     console.log('Component Constructed')
+//     super(props);
+//     this.state = {
+//        posts: []
+//     }
+// }
+
+
+// componentDidMount(){
+//     console.log('Component Did Mount')
+//     useEffect(() => {
+//     fetch('https://kekambas-bs.herokuapp.com/posts')
+//     .then(res => res.json())
+//     .then(data => {
+//         console.log(data)
+//         this.setState({
+//             posts: data
+//     })
+
+
+//     })
+//     })
+// }
+
+    // render() {
+    //     console.log('Component Rendered')
     return (
         <>
             <h1>This is the class posts</h1>
@@ -37,11 +53,10 @@ componentDidMount(){
                 </tr>
             </thead>
             <tbody>
-                {this.state.posts.map((m, i) => <PostsRow posts={m} key={i} />)}
+                {posts.map((m, i) => <PostsRow posts={m} key={i} />)}
             </tbody>
 
             </table>
         </>
-    );
+    )
   }
-}
